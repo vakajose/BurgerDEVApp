@@ -4,11 +4,314 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="BurguerDevModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="BurguerDevModelTargetContainer" >
-        </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+    <Schema Namespace="BurguerDevModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BurguerDevModelStoreContainer">
+    <EntitySet Name="Pedido" EntityType="BurguerDevModel.Store.Pedido" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cliente" EntityType="BurguerDevModel.Store.Cliente" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Producto" EntityType="BurguerDevModel.Store.Producto" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Sucursal" EntityType="BurguerDevModel.Store.Sucursal" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Zona" EntityType="BurguerDevModel.Store.Zona" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Coordenada" EntityType="BurguerDevModel.Store.Coordenada" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Cola" EntityType="BurguerDevModel.Store.Cola" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Empleado" EntityType="BurguerDevModel.Store.Empleado" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Rol" EntityType="BurguerDevModel.Store.Rol" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuario" EntityType="BurguerDevModel.Store.Usuario" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductoPedido" EntityType="BurguerDevModel.Store.ProductoPedido" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="PedidoCliente" Association="BurguerDevModel.Store.PedidoCliente">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Cliente" EntitySet="Cliente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPedido_Producto" Association="BurguerDevModel.Store.FK_ProductoPedido_Producto">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductoPedido_Pedido" Association="BurguerDevModel.Store.FK_ProductoPedido_Pedido">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="ProductoPedido" EntitySet="ProductoPedido" />
+    </AssociationSet>
+    <AssociationSet Name="SucursalPedido" Association="BurguerDevModel.Store.SucursalPedido">
+      <End Role="Sucursal" EntitySet="Sucursal" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+    <AssociationSet Name="PedidoZona" Association="BurguerDevModel.Store.PedidoZona">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Zona" EntitySet="Zona" />
+    </AssociationSet>
+    <AssociationSet Name="ZonaSucursal" Association="BurguerDevModel.Store.ZonaSucursal">
+      <End Role="Zona" EntitySet="Zona" />
+      <End Role="Sucursal" EntitySet="Sucursal" />
+    </AssociationSet>
+    <AssociationSet Name="PedidoCola" Association="BurguerDevModel.Store.PedidoCola">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Cola" EntitySet="Cola" />
+    </AssociationSet>
+    <AssociationSet Name="PedidoEmpleado" Association="BurguerDevModel.Store.PedidoEmpleado">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="Empleado" EntitySet="Empleado" />
+    </AssociationSet>
+    <AssociationSet Name="EmpleadoRol" Association="BurguerDevModel.Store.EmpleadoRol">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Rol" EntitySet="Rol" />
+    </AssociationSet>
+    <AssociationSet Name="CoordenadaZona" Association="BurguerDevModel.Store.CoordenadaZona">
+      <End Role="Coordenada" EntitySet="Coordenada" />
+      <End Role="Zona" EntitySet="Zona" />
+    </AssociationSet>
+    <AssociationSet Name="EmpleadoUsuario" Association="BurguerDevModel.Store.EmpleadoUsuario">
+      <End Role="Empleado" EntitySet="Empleado" />
+      <End Role="Usuario" EntitySet="Usuario" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="iPedidoId" />
+    </Key>
+    <Property Name="iPedidoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dtPedido" Type="datetime" Nullable="false" />
+    <Property Name="sDescripcion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTiempoEntrega" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sDireccionEntrega" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sZona" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sCoordenadasX" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sCoordenadasY" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dPrecioTotal" Type="decimal" Nullable="false" />
+    <Property Name="dDescuento" Type="decimal" Nullable="false" />
+    <Property Name="dRecargos" Type="decimal" Nullable="false" />
+    <Property Name="dPrecioNeto" Type="decimal" Nullable="false" />
+    <Property Name="iClienteId" Type="int" Nullable="false" />
+    <Property Name="iSucursald" Type="int" Nullable="false" />
+    <Property Name="iZonaId" Type="int" Nullable="false" />
+    <Property Name="iEmpleadoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="iClienteId" />
+    </Key>
+    <Property Name="iClienteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sApellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sDireccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTelefono" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="iProductoId" />
+    </Key>
+    <Property Name="iProductoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombreProducto" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sDescripccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dPrecio" Type="datetime" Nullable="false" />
+    <Property Name="sTipo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sUnidad" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTiempoPreparacion" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Sucursal">
+    <Key>
+      <PropertyRef Name="iSucursald" />
+    </Key>
+    <Property Name="iSucursald" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sDireccion" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTelefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="iZonaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Zona">
+    <Key>
+      <PropertyRef Name="iZonaId" />
+    </Key>
+    <Property Name="iZonaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombreZona" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Coordenada">
+    <Key>
+      <PropertyRef Name="iCoordenadaId" />
+    </Key>
+    <Property Name="iCoordenadaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sCoordenada_num" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="iZonaId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cola">
+    <Key>
+      <PropertyRef Name="iColaId" />
+    </Key>
+    <Property Name="iColaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sEstado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sNumCola" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="dtHoraSalida" Type="datetime" Nullable="false" />
+    <Property Name="dtHoraLlegada" Type="datetime" Nullable="false" />
+    <Property Name="sEstadoPagado" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="iPedidoId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Empleado">
+    <Key>
+      <PropertyRef Name="iEmpleadoId" />
+    </Key>
+    <Property Name="iEmpleadoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombre" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sApellido" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTelefono" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sEmail" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="iRolId" Type="int" Nullable="false" />
+    <Property Name="iUsuarioId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="iRolId" />
+    </Key>
+    <Property Name="iRolId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sNombreRol" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sTurno" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="iUsuarioId" />
+    </Key>
+    <Property Name="iUsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sLogin" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sPassword" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductoPedido">
+    <Key>
+      <PropertyRef Name="Producto_iProductoId" />
+      <PropertyRef Name="ProductoPedido_Producto_iPedidoId" />
+    </Key>
+    <Property Name="Producto_iProductoId" Type="int" Nullable="false" />
+    <Property Name="ProductoPedido_Producto_iPedidoId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="PedidoCliente">
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="*" />
+    <End Role="Cliente" Type="BurguerDevModel.Store.Cliente" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="iClienteId" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="iClienteId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="SucursalPedido">
+    <End Role="Sucursal" Type="BurguerDevModel.Store.Sucursal" Multiplicity="1" />
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sucursal">
+        <PropertyRef Name="iSucursald" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="iSucursald" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PedidoZona">
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="*" />
+    <End Role="Zona" Type="BurguerDevModel.Store.Zona" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Zona">
+        <PropertyRef Name="iZonaId" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="iZonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ZonaSucursal">
+    <End Role="Zona" Type="BurguerDevModel.Store.Zona" Multiplicity="1" />
+    <End Role="Sucursal" Type="BurguerDevModel.Store.Sucursal" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Zona">
+        <PropertyRef Name="iZonaId" />
+      </Principal>
+      <Dependent Role="Sucursal">
+        <PropertyRef Name="iZonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PedidoCola">
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="1" />
+    <End Role="Cola" Type="BurguerDevModel.Store.Cola" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="iPedidoId" />
+      </Principal>
+      <Dependent Role="Cola">
+        <PropertyRef Name="iPedidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PedidoEmpleado">
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="*" />
+    <End Role="Empleado" Type="BurguerDevModel.Store.Empleado" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Empleado">
+        <PropertyRef Name="iEmpleadoId" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="iEmpleadoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmpleadoRol">
+    <End Role="Empleado" Type="BurguerDevModel.Store.Empleado" Multiplicity="*" />
+    <End Role="Rol" Type="BurguerDevModel.Store.Rol" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="iRolId" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="iRolId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CoordenadaZona">
+    <End Role="Coordenada" Type="BurguerDevModel.Store.Coordenada" Multiplicity="*" />
+    <End Role="Zona" Type="BurguerDevModel.Store.Zona" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Zona">
+        <PropertyRef Name="iZonaId" />
+      </Principal>
+      <Dependent Role="Coordenada">
+        <PropertyRef Name="iZonaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EmpleadoUsuario">
+    <End Role="Empleado" Type="BurguerDevModel.Store.Empleado" Multiplicity="*" />
+    <End Role="Usuario" Type="BurguerDevModel.Store.Usuario" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="iUsuarioId" />
+      </Principal>
+      <Dependent Role="Empleado">
+        <PropertyRef Name="iUsuarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPedido_Producto">
+    <End Role="Producto" Type="BurguerDevModel.Store.Producto" Multiplicity="1" />
+    <End Role="ProductoPedido" Type="BurguerDevModel.Store.ProductoPedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="iProductoId" />
+      </Principal>
+      <Dependent Role="ProductoPedido">
+        <PropertyRef Name="Producto_iProductoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductoPedido_Pedido">
+    <End Role="ProductoPedido" Type="BurguerDevModel.Store.ProductoPedido" Multiplicity="*" />
+    <End Role="Pedido" Type="BurguerDevModel.Store.Pedido" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="iPedidoId" />
+      </Principal>
+      <Dependent Role="ProductoPedido">
+        <PropertyRef Name="ProductoPedido_Producto_iPedidoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="BurguerDevModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -58,6 +361,11 @@
             <End Role="Coordenada" EntitySet="Coordenada" />
             <End Role="Zona" EntitySet="Zona" />
           </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="BurguerDevModel.Usuario" />
+          <AssociationSet Name="EmpleadoUsuario" Association="BurguerDevModel.EmpleadoUsuario">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Pedido">
           <Key>
@@ -95,7 +403,6 @@
           <Property Name="sDireccion" Type="String" Nullable="false" />
           <Property Name="sEmail" Type="String" Nullable="false" />
           <Property Name="sTelefono" Type="String" Nullable="false" />
-          <Property Name="iPedidoId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Pedido" Relationship="BurguerDevModel.PedidoCliente" FromRole="Cliente" ToRole="Pedido" />
         </EntityType>
         <EntityType Name="Producto">
@@ -163,6 +470,8 @@
           <NavigationProperty Name="Pedido" Relationship="BurguerDevModel.PedidoEmpleado" FromRole="Empleado" ToRole="Pedido" />
           <NavigationProperty Name="Rol" Relationship="BurguerDevModel.EmpleadoRol" FromRole="Empleado" ToRole="Rol" />
           <Property Name="iRolId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="BurguerDevModel.EmpleadoUsuario" FromRole="Empleado" ToRole="Usuario" />
+          <Property Name="iUsuarioId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -273,17 +582,161 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="iUsuarioId" />
+          </Key>
+          <Property Name="iUsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sLogin" Type="String" Nullable="false" />
+          <Property Name="sPassword" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="EmpleadoUsuario">
+          <End Type="BurguerDevModel.Empleado" Role="Empleado" Multiplicity="*" />
+          <End Type="BurguerDevModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="iUsuarioId" />
+            </Principal>
+            <Dependent Role="Empleado">
+              <PropertyRef Name="iUsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="BurguerDevModel" />
-        <Alias Key="Target" Value="BurguerDevModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="BurguerDevModelContainer" StorageEntityContainer="BurguerDevModelTargetContainer">
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BurguerDevModelStoreContainer" CdmEntityContainer="BurguerDevModelContainer">
+    <EntitySetMapping Name="Pedido">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Pedido)">
+        <MappingFragment StoreEntitySet="Pedido">
+          <ScalarProperty Name="iPedidoId" ColumnName="iPedidoId" />
+          <ScalarProperty Name="dtPedido" ColumnName="dtPedido" />
+          <ScalarProperty Name="sDescripcion" ColumnName="sDescripcion" />
+          <ScalarProperty Name="sTiempoEntrega" ColumnName="sTiempoEntrega" />
+          <ScalarProperty Name="sDireccionEntrega" ColumnName="sDireccionEntrega" />
+          <ScalarProperty Name="sZona" ColumnName="sZona" />
+          <ScalarProperty Name="sCoordenadasX" ColumnName="sCoordenadasX" />
+          <ScalarProperty Name="sCoordenadasY" ColumnName="sCoordenadasY" />
+          <ScalarProperty Name="dPrecioTotal" ColumnName="dPrecioTotal" />
+          <ScalarProperty Name="dDescuento" ColumnName="dDescuento" />
+          <ScalarProperty Name="dRecargos" ColumnName="dRecargos" />
+          <ScalarProperty Name="dPrecioNeto" ColumnName="dPrecioNeto" />
+          <ScalarProperty Name="iClienteId" ColumnName="iClienteId" />
+          <ScalarProperty Name="iSucursald" ColumnName="iSucursald" />
+          <ScalarProperty Name="iZonaId" ColumnName="iZonaId" />
+          <ScalarProperty Name="iEmpleadoId" ColumnName="iEmpleadoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cliente">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Cliente)">
+        <MappingFragment StoreEntitySet="Cliente">
+          <ScalarProperty Name="iClienteId" ColumnName="iClienteId" />
+          <ScalarProperty Name="sNombre" ColumnName="sNombre" />
+          <ScalarProperty Name="sApellido" ColumnName="sApellido" />
+          <ScalarProperty Name="sDireccion" ColumnName="sDireccion" />
+          <ScalarProperty Name="sEmail" ColumnName="sEmail" />
+          <ScalarProperty Name="sTelefono" ColumnName="sTelefono" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producto">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Producto)">
+        <MappingFragment StoreEntitySet="Producto">
+          <ScalarProperty Name="iProductoId" ColumnName="iProductoId" />
+          <ScalarProperty Name="sNombreProducto" ColumnName="sNombreProducto" />
+          <ScalarProperty Name="sDescripccion" ColumnName="sDescripccion" />
+          <ScalarProperty Name="dPrecio" ColumnName="dPrecio" />
+          <ScalarProperty Name="sTipo" ColumnName="sTipo" />
+          <ScalarProperty Name="sUnidad" ColumnName="sUnidad" />
+          <ScalarProperty Name="sTiempoPreparacion" ColumnName="sTiempoPreparacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sucursal">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Sucursal)">
+        <MappingFragment StoreEntitySet="Sucursal">
+          <ScalarProperty Name="iSucursald" ColumnName="iSucursald" />
+          <ScalarProperty Name="sNombre" ColumnName="sNombre" />
+          <ScalarProperty Name="sDireccion" ColumnName="sDireccion" />
+          <ScalarProperty Name="sTelefono" ColumnName="sTelefono" />
+          <ScalarProperty Name="iZonaId" ColumnName="iZonaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Zona">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Zona)">
+        <MappingFragment StoreEntitySet="Zona">
+          <ScalarProperty Name="iZonaId" ColumnName="iZonaId" />
+          <ScalarProperty Name="sNombreZona" ColumnName="sNombreZona" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Coordenada">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Coordenada)">
+        <MappingFragment StoreEntitySet="Coordenada">
+          <ScalarProperty Name="iCoordenadaId" ColumnName="iCoordenadaId" />
+          <ScalarProperty Name="sCoordenada_num" ColumnName="sCoordenada_num" />
+          <ScalarProperty Name="iZonaId" ColumnName="iZonaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Cola">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Cola)">
+        <MappingFragment StoreEntitySet="Cola">
+          <ScalarProperty Name="iColaId" ColumnName="iColaId" />
+          <ScalarProperty Name="sEstado" ColumnName="sEstado" />
+          <ScalarProperty Name="sNumCola" ColumnName="sNumCola" />
+          <ScalarProperty Name="dtHoraSalida" ColumnName="dtHoraSalida" />
+          <ScalarProperty Name="dtHoraLlegada" ColumnName="dtHoraLlegada" />
+          <ScalarProperty Name="sEstadoPagado" ColumnName="sEstadoPagado" />
+          <ScalarProperty Name="iPedidoId" ColumnName="iPedidoId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Empleado">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Empleado)">
+        <MappingFragment StoreEntitySet="Empleado">
+          <ScalarProperty Name="iEmpleadoId" ColumnName="iEmpleadoId" />
+          <ScalarProperty Name="sNombre" ColumnName="sNombre" />
+          <ScalarProperty Name="sApellido" ColumnName="sApellido" />
+          <ScalarProperty Name="sTelefono" ColumnName="sTelefono" />
+          <ScalarProperty Name="sEmail" ColumnName="sEmail" />
+          <ScalarProperty Name="iRolId" ColumnName="iRolId" />
+          <ScalarProperty Name="iUsuarioId" ColumnName="iUsuarioId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Rol">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Rol)">
+        <MappingFragment StoreEntitySet="Rol">
+          <ScalarProperty Name="iRolId" ColumnName="iRolId" />
+          <ScalarProperty Name="sNombreRol" ColumnName="sNombreRol" />
+          <ScalarProperty Name="sTurno" ColumnName="sTurno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usuario">
+      <EntityTypeMapping TypeName="IsTypeOf(BurguerDevModel.Usuario)">
+        <MappingFragment StoreEntitySet="Usuario">
+          <ScalarProperty Name="iUsuarioId" ColumnName="iUsuarioId" />
+          <ScalarProperty Name="sLogin" ColumnName="sLogin" />
+          <ScalarProperty Name="sPassword" ColumnName="sPassword" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProductoPedido" TypeName="BurguerDevModel.ProductoPedido" StoreEntitySet="ProductoPedido">
+      <EndProperty Name="Producto">
+        <ScalarProperty Name="iProductoId" ColumnName="Producto_iProductoId" />
+      </EndProperty>
+      <EndProperty Name="Pedido">
+        <ScalarProperty Name="iPedidoId" ColumnName="ProductoPedido_Producto_iPedidoId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -297,6 +750,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -23,6 +23,8 @@
         <AssociationConnector Association="BurguerDevModel.PedidoEmpleado" />
         <AssociationConnector Association="BurguerDevModel.EmpleadoRol" />
         <AssociationConnector Association="BurguerDevModel.CoordenadaZona" />
+        <EntityTypeShape EntityType="BurguerDevModel.Usuario" Width="1.5" PointX="6.875" PointY="0.5" />
+        <AssociationConnector Association="BurguerDevModel.EmpleadoUsuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
